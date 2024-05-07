@@ -116,6 +116,15 @@ localhost:7681
 ```
 ![In action](/images/in-action.png)
 
+## Local run
+If you wish to have all the aforementioned tools into a container you got a shell to (.i.e. as a result of an app compromise), instead of manually download them you can use `download.sh`.
+
+```bash
+kubectl cp download.sh <container_id>:/tmp -n <namespace>
+kubectl exec --stdin --tty <container_id> -n <namespace> -- sh -c 'cd /tmp && bash'
+/tmp $ chmod +x download.sh && ./download.sh
+```
+
 ## Contributing
 If you liked this, I'd appreciate some PR 🙂
 
