@@ -4,7 +4,6 @@ WGET="wget"
 CURL="curl"
 PYTHON3="python3"
 
-
 if [ $BYPASS_FALCO ]; then
     mv /usr/bin/python3 /usr/bin/pton3 \
         && mv /usr/bin/curl /usr/bin/kurl \
@@ -58,13 +57,13 @@ $CURL -s  https://api.github.com/repos/quarkslab/kdigger/releases/latest | grep 
     && rm -rf kdigger-linux-amd64*;
 
 # Install kubectl
-$CURL -LO https://storage.googleapis.com/kubernetes-release/release/`kurl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl \
+$CURL -LO https://storage.googleapis.com/kubernetes-release/release/`$CURL -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl \
     && mv kubectl k \
     && install ./k /usr/local/bin/ \
     && rm ./k;
 
 #Install amicontained
-$CURL -s  https://api.github.com/repos/genuinetools/amicontainerd/releases/latest | grep "browser_download_url.*-linux-amd64" |  cut -d : -f 2,3 | tr -d \" | $WGET -qi - \
+$CURL -s  https://api.github.com/repos/genuinetools/amicontained/releases/latest | grep "browser_download_url.*-linux-amd64" |  cut -d : -f 2,3 | tr -d \" | $WGET -qi - \
     && install amicontained-linux-amd64 /usr/local/bin/amicontained \
     && rm -rf ./amicontained-linux-amd64;
 
